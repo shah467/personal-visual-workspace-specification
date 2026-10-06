@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Design tokens — independently designed Dark & Light palettes (spec §31) */
+/* ---------------------------------------------------------------------- */
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-0: #0a0a0b;
+  --surface-1: #121214;
+  --surface-2: #19191c;
+  --surface-3: #212125;
+  --surface-hover: #242428;
+  --border: #2a2a2e;
+  --border-strong: #38383e;
+  --ink: #ededee;
+  --ink-muted: #a3a3ab;
+  --ink-faint: #6c6c74;
+  --accent: #8c8bff;
+  --accent-soft: rgba(140, 139, 255, 0.14);
+  --accent-ink: #f3f3ff;
+  --danger: #ef6a6a;
+  --danger-soft: rgba(239, 106, 106, 0.14);
+  --success: #5fcf8f;
+  --grid-dot: rgba(255, 255, 255, 0.055);
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.45);
+  --shadow-elevated: 0 20px 60px rgba(0, 0, 0, 0.55);
+
+  --node-neutral: #9a9aa4;
+  --node-amber: #d8a657;
+  --node-rose: #d8839a;
+  --node-violet: #a08cf0;
+  --node-sky: #76b3d8;
+  --node-emerald: #6fbf96;
+  --node-slate: #7c8a9e;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --surface-0: #f4f3ef;
+  --surface-1: #fbfaf8;
+  --surface-2: #ffffff;
+  --surface-3: #f1f0ec;
+  --surface-hover: #ebe9e4;
+  --border: #e3e1da;
+  --border-strong: #d2cfc5;
+  --ink: #201f1c;
+  --ink-muted: #6b685f;
+  --ink-faint: #9b988e;
+  --accent: #5b4bdb;
+  --accent-soft: rgba(91, 75, 219, 0.1);
+  --accent-ink: #ffffff;
+  --danger: #c7483f;
+  --danger-soft: rgba(199, 72, 63, 0.1);
+  --success: #2f8f5b;
+  --grid-dot: rgba(20, 18, 14, 0.07);
+  --shadow-soft: 0 10px 30px rgba(30, 25, 15, 0.08);
+  --shadow-elevated: 0 24px 60px rgba(30, 25, 15, 0.14);
+
+  --node-neutral: #726f68;
+  --node-amber: #a9762b;
+  --node-rose: #b1546b;
+  --node-violet: #6a53d1;
+  --node-sky: #2c7aa3;
+  --node-emerald: #2f8f5b;
+  --node-slate: #4d5c70;
+}
+
+@theme inline {
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-success: var(--success);
+  --font-sans: var(--font-app), ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--surface-0);
+  color: var(--ink);
+  font-family: var(--font-app), ui-sans-serif, system-ui, sans-serif;
+  overscroll-behavior: none;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.node-color-neutral { --node-accent: var(--node-neutral); }
+.node-color-amber { --node-accent: var(--node-amber); }
+.node-color-rose { --node-accent: var(--node-rose); }
+.node-color-violet { --node-accent: var(--node-violet); }
+.node-color-sky { --node-accent: var(--node-sky); }
+.node-color-emerald { --node-accent: var(--node-emerald); }
+.node-color-slate { --node-accent: var(--node-slate); }
+
+@keyframes pvw-fade-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.pvw-fade-in {
+  animation: pvw-fade-in 140ms ease-out;
+}
+
+@keyframes pvw-pop {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+.pvw-pop {
+  animation: pvw-pop 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.markdown-body :where(h1, h2, h3) {
+  font-weight: 600;
+  margin: 0.6em 0 0.3em;
+  color: var(--ink);
+}
+.markdown-body p {
+  margin: 0.4em 0;
+  line-height: 1.55;
+}
+.markdown-body ul, .markdown-body ol {
+  margin: 0.4em 0;
+  padding-inline-start: 1.3em;
+}
+.markdown-body code {
+  background: var(--surface-3);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+.markdown-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.markdown-body blockquote {
+  border-left: 2px solid var(--border-strong);
+  padding-left: 0.8em;
+  color: var(--ink-muted);
+  margin: 0.4em 0;
+}
